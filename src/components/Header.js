@@ -1,7 +1,8 @@
 import React from 'react'
 
-import { AppBar, Container, Typography, Toolbar, Select, MenuItem, makeStyles } from '@material-ui/core';
+import { AppBar, Container, Typography, Toolbar, Select, MenuItem, makeStyles, createTheme, ThemeProvider } from '@material-ui/core';
 import {useNavigate} from 'react-router-dom';
+import { CryptoState } from '../CryptoContext';
 
 
 const useStyles = makeStyles(()=>({
@@ -22,14 +23,29 @@ const Header = () => {
   const classes = useStyles();
   const navigate = useNavigate();
 
+  const {currency, setCurrency} = CryptoState();
+
+  console.log(currency);
+
+  const headerTheme = createTheme({
+    palette:{
+      primary:{
+        main: "#e4451df3",
+      }
+      
+    },
+    typography:{
+      fontFamily: "Montserrat"
+    }
+  });
   
   
   return (
-      
+      <ThemeProvider theme={headerTheme}>
         <AppBar position="static" color="transparent">
         <Container >
           <Toolbar>
-            <Typography onClick={()=>navigate("/")} className={classes.title}
+            <Typography onClick={()=>navigate("/")} className={classes.title} variant={"h5"}
             >
             Cryptocurrency Market
             </Typography>
@@ -42,6 +58,8 @@ const Header = () => {
                   height: 40,
                   marginLeft: 15,
               }}
+              value={currency}
+              onChange={(e) => setCurrency(e.target.value)}
               >
                 <MenuItem value={"USD"}>USD</MenuItem>
                 <MenuItem value={"GHS"}>GHS</MenuItem>
@@ -51,7 +69,7 @@ const Header = () => {
            </Toolbar>
           </Container>
         </AppBar>
-      
+      </ThemeProvider>
     
   )
 }
