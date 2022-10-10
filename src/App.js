@@ -6,20 +6,17 @@ import Homepage from "./Pages/Homepage";
 import CoinPage from "./Pages/CoinPage";
 import { makeStyles } from '@material-ui/core';
 
-
-  const useStyles = makeStyles(()=>({
-      App:{
-        backgroundColor:"#fff0e5",
-        color: "black",
-        minHeight:"100vh"
-      },
-    }));
-
-
+const useStyles = makeStyles(()=>({
+  App:{
+    backgroundColor:"#fff0e5",
+    color: "black",
+    minHeight:"100vh"
+  },
+}));
+  
 function App() {
-    
-
-    const classes = useStyles();
+  // styles object
+  const classes = useStyles();
     
   return (
     <BrowserRouter >

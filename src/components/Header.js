@@ -1,6 +1,7 @@
 import React from 'react'
 
-import { AppBar, Container, Typography, Toolbar, Select, MenuItem, makeStyles } from '@material-ui/core';
+import { AppBar, Container, Typography, Toolbar, Select, MenuItem, makeStyles, 
+        FormControl, InputLabel } from '@material-ui/core';
 import {useNavigate} from 'react-router-dom';
 
 
@@ -11,10 +12,11 @@ const useStyles = makeStyles(()=>({
     fontFamily: "Cursive",
     fontWeight: "bold",
     cursor: "pointer",
+  },
+  formControl:{
+    minWidth: 110
   }
 }))
-
-
 
   
 const Header = () => {
@@ -26,31 +28,25 @@ const Header = () => {
   
   return (
       
-        <AppBar position="static" color="transparent">
-        <Container >
-          <Toolbar>
-            <Typography onClick={()=>navigate("/")} className={classes.title}
-            >
+    <AppBar position="static" color="transparent">
+      <Container >
+        <Toolbar>
+          <Typography onClick={()=>navigate("/")} className={classes.title}>
             Cryptocurrency Market
-            </Typography>
+          </Typography>
 
-            <Select 
-            // currency select button//
-              variant="outlined"
-              style={{
-                  width: 100,
-                  height: 40,
-                  marginLeft: 15,
-              }}
-              >
-                <MenuItem value={"USD"}>USD</MenuItem>
-                <MenuItem value={"GHS"}>GHS</MenuItem>
-                <MenuItem value={"EUR"}>EUR</MenuItem>
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel>Currency</InputLabel>
+            <Select label="Currency">
+              <MenuItem value={"USD"}>USD</MenuItem>
+              <MenuItem value={"GHS"}>GHS</MenuItem>
+              <MenuItem value={"EUR"}>EUR</MenuItem>
             </Select>
+          </FormControl>
 
-           </Toolbar>
-          </Container>
-        </AppBar>
+        </Toolbar>
+      </Container>
+    </AppBar>
       
     
   )
