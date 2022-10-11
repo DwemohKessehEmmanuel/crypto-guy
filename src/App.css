@@ -5,13 +5,16 @@
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
-  
+}
+
+body {
+  background-color: black;
 }
 
 a{
   text-decoration: none;
   /* color: #e4451df3; */
   /* color:#fff0e5 */
-  color:#fcd6bafd
+  color:#fcd6bafd;
   
 }

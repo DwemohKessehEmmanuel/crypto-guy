@@ -4,11 +4,8 @@ import Carousel from './Carousel';
 
 const useStyles = makeStyles(()=>({
    banner:{
-   
     backgroundImage:"url(./bannerIMG5.jpg)",
     backgroundSize: "cover",
-    
-
    },
    bannerContent:{
     height: 400,
@@ -38,6 +35,7 @@ const Banner = () => {
             variant="h2" 
             style={{
                 fontWeight: "bold",
+                marginTop: 100,
                 marginBottom: 20,
                 fontFamily: "Montserrat",
                 color:"white"
@@ -47,13 +45,13 @@ const Banner = () => {
             <Typography
             variant="subtitle2" 
             style={{
-                color: "darkgrey",
+                color: "white",
                 textTransform: "capitalize",
                 fontFamily: "Montserrat",
                 marginBottom:170
                 
             }}>
-               up-to-date info on all your favorite Crpto Currencies in one place
+               up-to-date info on all your favorite Crypto Currencies in one place
             </Typography>
             
         </div>

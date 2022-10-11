@@ -3,6 +3,7 @@ import React from 'react'
 import { AppBar, Container, Typography, Toolbar, Select, MenuItem, makeStyles, 
         FormControl, InputLabel, createTheme, ThemeProvider } from '@material-ui/core';
 import { CryptoState } from '../CryptoContext';
+import {useNavigate} from 'react-router-dom';
 
 
 const useStyles = makeStyles(()=>({
@@ -26,7 +27,7 @@ const Header = () => {
 
   const {currency, setCurrency} = CryptoState();
 
-  console.log(currency);
+  // console.log(currency);
 
   const headerTheme = createTheme({
     palette:{
@@ -51,8 +52,10 @@ const Header = () => {
             </Typography>
             <FormControl variant="outlined" className={classes.formControl}>
               <InputLabel>Currency</InputLabel>
-              <Select label="Currency" value={currency}
-                onChange={(e) => setCurrency(e.target.value)}>
+              <Select label="Currency" 
+                value={currency}
+                onChange={(e) => setCurrency(e.target.value)}
+                >
                 <MenuItem value={"USD"}>USD</MenuItem>
                 <MenuItem value={"GHS"}>GHS</MenuItem>
                 <MenuItem value={"EUR"}>EUR</MenuItem>
