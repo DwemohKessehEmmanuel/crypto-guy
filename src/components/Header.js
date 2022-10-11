@@ -15,8 +15,12 @@ const useStyles = makeStyles(()=>({
     cursor: "pointer",
   },
   formControl:{
-    minWidth: 110
-  }
+    minWidth: 110,
+    //paddingBottom: 10,
+  },
+  bar:{
+    padding: 10
+  },
 }))
 
   
@@ -44,7 +48,7 @@ const Header = () => {
   
   return (
     <ThemeProvider theme={headerTheme}>
-      <AppBar position="static" color="transparent">
+      <AppBar position="static" color="transparent" className={classes.bar}>
         <Container >
           <Toolbar>
             <Typography onClick={()=>navigate("/")} className={classes.title} variant={"h5"}>
