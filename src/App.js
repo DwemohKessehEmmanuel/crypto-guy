@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import "./App.css";
 import Header from "./components/Header";
@@ -6,14 +5,17 @@ import Homepage from "./Pages/Homepage";
 import CoinPage from "./Pages/CoinPage";
 import { makeStyles } from '@material-ui/core';
 
+
 const useStyles = makeStyles(()=>({
-  App:{
-    backgroundColor:"#fff0e5",
-    color: "black",
-    minHeight:"100vh"
-  },
-}));
-  
+    App:{
+      backgroundColor:"#fcd6bafd",
+      color: "black",
+      minHeight:"100vh"
+    },
+  })
+);
+
+
 function App() {
   // styles object
   const classes = useStyles();
