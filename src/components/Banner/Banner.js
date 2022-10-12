@@ -50,10 +50,10 @@ const Banner = () => {
                 color: "darkgrey",
                 textTransform: "capitalize",
                 fontFamily: "Montserrat",
-                marginBottom:170
+                marginBottom:140
                 
             }}>
-               up-to-date info on all your favorite Crpto Currencies in one place
+               up-to-date info on all your favorite Crypto Currencies in one place
             </Typography>
             
         </div>
