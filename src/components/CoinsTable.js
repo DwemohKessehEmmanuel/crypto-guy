@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { CoinList } from '../config/api';
 import { CryptoState } from '../CryptoContext';
 import { numberWithCommas } from './Banner/Carousel';
+import {Pagination} from '@material-ui/lab';
+
 
 const useStyles = makeStyles(()=>({
   row:{
@@ -18,13 +20,23 @@ const useStyles = makeStyles(()=>({
     fontFamily: "Montserrat",
     
   },
-}));
+  pagination:{
+   "& .MuiPaginationItem-root":{
+    color: "#e4451df3",
+   },
+    
+  },
+ 
+  }
+));
 
 
 const CoinsTable = () => {
     const [coins, setCoins] = useState([]);
     const [loading, setLoading] = useState(false);
     const [search, setSearch] = useState("");
+    const [page, setPage] = useState(1);
+    
     const navigate = useNavigate();
     
 
@@ -103,7 +115,8 @@ const CoinsTable = () => {
                             </TableHead>
 
                             <TableBody>
-                                {searchHandling().map(row=>{
+                                {searchHandling()
+                                .slice((page - 1)* 10, (page - 1) * 10 +10).map(row=>{
                                 const profit = row.price_change_percentage_24h > 0;
 
                                 return(
@@ -164,6 +177,23 @@ const CoinsTable = () => {
                     )
                 }
             </TableContainer>
+            
+            <Pagination
+            classes={{ul: classes.pagination}}
+            style={{
+                display:"flex",
+                justifyContent: "center",
+                padding: 20,
+                width: "100%"
+            }}
+            count={(searchHandling()?.length / 10).toFixed(0)}
+            onChange={(_ , value) => {
+                setPage(value);
+                window.scroll(0,450);
+            }}
+            ></Pagination>
+
+           
         </Container>
     </ThemeProvider>
   )
