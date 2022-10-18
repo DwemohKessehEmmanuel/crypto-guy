@@ -18,7 +18,20 @@ const useStyles = makeStyles((theme)=>({
         alignItems: "center",
         cursor: "pointer",
         textTransform: "uppercase",
-        color: "white"
+        color: "white",
+        
+    },
+    cointiles: {
+        background: "white",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        marginRight: 5,
+        marginleft: 5,
+        color: "black",
+        width: 100,
+        padding: 10,
+        borderRadius: 5
     }
 }));
 
@@ -41,33 +54,35 @@ const Carousel = () => {
 
     useEffect(()=>{
         fetchTrendingCoins(); 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[currency]);
 
 const items = trending.map((coin)=>{
     let profit = coin.price_change_percentage_24h >= 0;
     return(
         <Link className={classes.carouselItem} to={`/coins/${coin.id}`}>
+            <div className={classes.cointiles}>
                 <img
                     src={coin?.image}
                     alt={coin.name}
-                    height="80"
+                    height="60"
                     style={{marginBottom: 10}}
                 />
-                <span>
+                <div>
                     {coin?.symbol}
                         &nbsp;
                         <span
                         style={{color:profit > 0? "rgb(14,203,129" : "red",
-                    fontweight: 500}}
+                    fontweight: 400}}
                         >
                             {profit && '+'}{coin?.price_change_percentage_24h?.toFixed(2)}%
                         </span>
-                </span>
-                <span style={{fontSize: 22, fontWeight: 500}}>
+                </div>
+                <div style={{fontSize: 16, fontWeight: 400}}>
                     {symbol}{numberWithCommas(coin?.current_price.toFixed(2))}
 
-                </span>
+                </div>
+            </div>    
         </Link>
     )
 }
