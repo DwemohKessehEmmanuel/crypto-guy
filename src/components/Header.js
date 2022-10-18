@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
+import { useNavigate } from "react-router-dom";
 
 import { AppBar, Container, Typography, Toolbar, Select, MenuItem, makeStyles, 
         FormControl, InputLabel, createTheme, ThemeProvider } from '@material-ui/core';
 import { CryptoState } from '../CryptoContext';
-import {useNavigate} from 'react-router-dom';
 
 
 const useStyles = makeStyles(()=>({
@@ -15,12 +15,8 @@ const useStyles = makeStyles(()=>({
     cursor: "pointer",
   },
   formControl:{
-    minWidth: 110,
-    //paddingBottom: 10,
-  },
-  bar:{
-    padding: 10
-  },
+    minWidth: 110
+  }
 }))
 
   
@@ -31,7 +27,7 @@ const Header = () => {
 
   const {currency, setCurrency} = CryptoState();
 
-  // console.log(currency);
+  console.log(currency);
 
   const headerTheme = createTheme({
     palette:{
@@ -48,7 +44,7 @@ const Header = () => {
   
   return (
     <ThemeProvider theme={headerTheme}>
-      <AppBar position="static" color="transparent" className={classes.bar}>
+      <AppBar position="static" color="transparent">
         <Container >
           <Toolbar>
             <Typography onClick={()=>navigate("/")} className={classes.title} variant={"h5"}>
@@ -56,10 +52,8 @@ const Header = () => {
             </Typography>
             <FormControl variant="outlined" className={classes.formControl}>
               <InputLabel>Currency</InputLabel>
-              <Select label="Currency" 
-                value={currency}
-                onChange={(e) => setCurrency(e.target.value)}
-                >
+              <Select label="Currency" value={currency}
+                onChange={(e) => setCurrency(e.target.value)}>
                 <MenuItem value={"USD"}>USD</MenuItem>
                 <MenuItem value={"GHS"}>GHS</MenuItem>
                 <MenuItem value={"EUR"}>EUR</MenuItem>
