@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { SingleCoin } from '../config/api';
 import { CryptoState } from '../CryptoContext';
 import axios from 'axios';
@@ -65,7 +65,23 @@ const useStyles = makeStyles((theme)=>({
       
     },
   },
-  
+  portbutton: {
+    boxShadow: 'rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px',
+    borderRadius: 5,
+    padding: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    fontFamily: "Cursive",
+    cursor: "pointer",
+    backgroundColor: "#F9842C",
+    color: "white",
+    fontWeight: 700,
+    "&:hover": {
+      backgroundColor: "#e4451df3",
+      color: "#D3D3D3",
+      boxShadow: 'rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset',
+    },
+  }  
 }));
 
 
@@ -79,10 +95,10 @@ const CoinPage = () => {
  
   const fetchSingleCoin = async() => {
     const {data} = await axios.get(SingleCoin(id));
-
-    setCoin(data)
+    //console.log(data);
+    setCoin(data);
   };
-
+  //console.log(coin);
   useEffect(()=>{
     fetchSingleCoin()
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -148,9 +164,7 @@ const CoinPage = () => {
           </span>
           
         </div>
-        <div onClick={()=>navigate("/portfolio")}>
-          <PortfolioButton coin={coin}/>
-        </div>
+        <Link to={'/portfolio'} className={classes.portbutton} state={coin}>Add to portfolio</Link>
       </div>
       
       
