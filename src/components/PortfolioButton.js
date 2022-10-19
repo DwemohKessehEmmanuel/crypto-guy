@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
@@ -23,9 +23,19 @@ const useStyles = makeStyles(() => ({
 
 
 const PortfolioButton = ({coin}) => {
-  const [coinId, setcoinId] = useState("");
+  const [coins, setCoins] = useState({});
   const classes = useStyles();
-  //setcoinId(id);
+
+  let id = coin.id;
+  
+
+//   useEffect(() => {
+//     setCoins(...{
+//         id: id,
+//         data: coin
+//     });
+//   }, [])
+  
   return (
     <span className={classes.portbutton}>
         Add to Portfolio
