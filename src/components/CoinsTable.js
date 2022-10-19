@@ -2,7 +2,7 @@ import { Container,createTheme, LinearProgress,
     makeStyles, Table, TableBody, TableCell, TableContainer,TableHead, TableRow, 
     TextField,ThemeProvider, Typography } from '@material-ui/core';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CoinList } from '../config/api';
 import { CryptoState } from '../CryptoContext';
