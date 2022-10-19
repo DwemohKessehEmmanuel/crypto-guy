@@ -5,7 +5,6 @@ import { CryptoState } from '../CryptoContext';
 import axios from 'axios';
 import { LinearProgress, makeStyles, Typography } from '@material-ui/core';
 import CoinInfo from '../components/CoinInfo';
-import PortfolioButton from '../components/PortfolioButton';
 import parse from 'html-react-parser'
 import { numberWithCommas } from '../components/Banner/Carousel';
 
