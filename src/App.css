@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Merriweather:ital@0;1&family=Montserrat:wght@300;400;800&family=Work+Sans:wght@400;500;800&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: black;
+}
+
+a{
+  text-decoration: none;
+  /* color: #e4451df3; */
+  /* color:#fff0e5 */
+  color:#fcc4bafd;
+  /* color:#cac9c9; */
+}
