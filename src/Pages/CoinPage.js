@@ -43,15 +43,15 @@ const useStyles = makeStyles((theme)=>({
   description:{
     width: "100%",
     fontFamily: "Montserrat",
-    padding: 25,
+    padding: 10,
     paddingBottom: 15,
     paddingTop: 0,
     textAlign: "justify",
   },
   marketData:{
     alignSelf: "start",
-    padding: 25,
-    paddingTop: 10,
+    padding: 10,
+    paddingTop: 5,
     width: "100%",
     //responsiveness
     [theme.breakpoints.down("md")]: {
@@ -73,7 +73,11 @@ const useStyles = makeStyles((theme)=>({
     alignSelf: "start",
     padding: 25,
     paddingTop: 10,
-    width: "100%",
+    width: "60%",
+    margin: "auto",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
     //responsiveness
     [theme.breakpoints.down("md")]: {
       display: "flex",
@@ -273,26 +277,32 @@ const CoinPage = () => {
             </Typography>
           </span>
         </div>
-        <div style={{marginBottom: 20}}>
+        <div 
+          style={{
+            marginBottom: 20,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}>
           <TextField id="outlined-basic" label="Number of coins" variant="outlined" onChange={e => setNumCoins(e.target.value)}/>
         </div>
 
-
-          {user && (
-          <Button
-          className={classes.portfolioadd}
-          variant='outlined'
-          style={{
-            width: "100%",
-            height: 40,
-            color: inPortfolio?"white" : "black",
-            backgroundColor: inPortfolio? "#dd7171": "#EEBC1D",
-          }}
-          onClick={inPortfolio? removeFromPortfolio: addToPortfolio}
-          >
-            {inPortfolio? "Remove from portfolio" : "Add to Portfolio"}
-          </Button>
-        )}
+        <div>
+        {user && (
+            <Button
+            className={classes.portfolioadd}
+            variant='outlined'
+            style={{
+              height: 40,
+              color: inPortfolio?"white" : "black",
+              backgroundColor: inPortfolio? "#dd7171": "#EEBC1D",
+            }}
+            onClick={inPortfolio? removeFromPortfolio: addToPortfolio}
+            >
+              {inPortfolio? "Remove from portfolio" : "Add to Portfolio"}
+            </Button>
+          )}
+        </div>
         </div>
         
       </div>

@@ -65,7 +65,7 @@ const Header = () => {
       
     },
     typography:{
-      fontFamily: "Montserrat"
+      //fontFamily: "Montserrat"
     }
   });
   
