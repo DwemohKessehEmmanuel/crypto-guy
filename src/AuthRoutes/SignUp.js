@@ -1,4 +1,4 @@
-import { Box, Button, makeStyles, TextField } from '@material-ui/core';
+import { Box, Button, makeStyles, TextField, Container } from '@material-ui/core';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
@@ -14,14 +14,23 @@ const useStyles = makeStyles(()=>({
       maxWidth : 400,
       justifyContent: "center",
       margin: "auto",
-      marginTop: 100,
+      padding: 50,
       borderRadius: 5,
       alignItems: "center",
-      boxShadow: "5px 5px 10px #ccc",
-      "&:hover":{
-          boxShadow:"10px 10px 20px #ccc",
+      boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+        "&:hover":{
+          boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px",
       },
       
+  },
+  container: {
+    width: "70%",
+    height: "70vh",
+    //background: "yellow",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   }
 }))
 
@@ -84,13 +93,13 @@ const SignUp = ({handleClose}) => {
   return (
 
 
-    <div>
+    <Container className={classes.container}>
       <form onSubmit={handleSubmit}>
         <Box className={classes.box}>
-            <div>
+            {/* <div>
               <h2>Sign for a free User Account</h2>
               
-            </div>
+            </div> */}
             
             <TextField
             onChange={handleChange} 
@@ -143,7 +152,7 @@ const SignUp = ({handleClose}) => {
             
         </Box>
       </form>
-    </div>
+    </Container>
   )
 }
 
