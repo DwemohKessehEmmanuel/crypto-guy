@@ -3,12 +3,14 @@ import { useParams} from 'react-router-dom';
 import { SingleCoin } from '../config/api';
 import { CryptoState } from '../CryptoContext';
 import axios from 'axios';
-import { Button, LinearProgress, makeStyles, Typography } from '@material-ui/core';
+import { Button, LinearProgress, makeStyles, Typography, TextField } from '@material-ui/core';
 import CoinInfo from '../components/CoinInfo';
 import parse from 'html-react-parser'
 import { numberWithCommas } from '../components/Banner/Carousel';
 import { doc,setDoc } from 'firebase/firestore';
 import { db } from '../firebase';
+import dateFormat, { masks } from "dateformat";
+
 
 
 const useStyles = makeStyles((theme)=>({
@@ -96,6 +98,7 @@ const useStyles = makeStyles((theme)=>({
 const CoinPage = () => {
   let {id} = useParams();
   const [coin, setCoin] = useState();
+  const [numCoins, setNumCoins] = useState();
   const {currency, symbol, user, portfolio, setAlert} = CryptoState();
   const classes = useStyles();
   // const navigate = useNavigate();
@@ -174,23 +177,24 @@ const CoinPage = () => {
           {parse(coin?.description.en.split(". ")[0])}
         </Typography>
         <div className={classes.marketData}>
+        <div className={classes.marketData}>
           <span style={{display: "flex"}}>
-            <Typography variant="h6" className={classes.heading}>
+            <Typography variant="h7" className={classes.heading}>
               Rank:
             </Typography>
             &nbsp; &nbsp;
-            <Typography variant="h6" style={{
+            <Typography variant="h7" style={{
               fontFamily:"Montserrat",}
             }>
               {coin?.market_cap_rank}
             </Typography>
           </span>
           <span style={{display: "flex"}}>
-            <Typography variant="h6" className={classes.heading}>
+            <Typography variant="h7" className={classes.heading}>
               Current Price:
             </Typography>
             &nbsp; &nbsp;
-            <Typography variant="h6" style={{
+            <Typography variant="h7" style={{
               fontFamily:"Montserrat",}
             }>
 
@@ -198,11 +202,11 @@ const CoinPage = () => {
             </Typography>
           </span>
           <span style={{display: "flex"}}>
-            <Typography variant="h6" className={classes.heading}>
+            <Typography variant="h7" className={classes.heading}>
               Market Cap:
             </Typography>
             &nbsp; &nbsp;
-            <Typography variant="h6" style={{
+            <Typography variant="h7" style={{
               fontFamily:"Montserrat",}
             }>
 
@@ -212,6 +216,68 @@ const CoinPage = () => {
               )}M
             </Typography>
           </span>
+          <span style={{display: "flex"}}>
+            <Typography variant="h7" className={classes.heading}>
+              Total Supply:
+            </Typography>
+            &nbsp; &nbsp;
+            <Typography variant="h7" style={{
+              fontFamily:"Montserrat",}
+            }>
+
+              {symbol}{" "}{numberWithCommas(coin?.market_data.total_supply
+                .toString()
+                .slice(0,-6)
+              )}M
+            </Typography>
+          </span>
+          <span style={{display: "flex"}}>
+            <Typography variant="h7" className={classes.heading}>
+              Circulating Supply:
+            </Typography>
+            &nbsp; &nbsp;
+            <Typography variant="h7" style={{
+              fontFamily:"Montserrat",}
+            }>
+
+              {symbol}{" "}{numberWithCommas(coin?.market_data.circulating_supply
+                .toString()
+                .slice(0,-6)
+              )}M
+            </Typography>
+          </span>
+          <span style={{display: "flex"}}>
+            <Typography variant="h7" className={classes.heading}>
+              Last Updated:
+            </Typography>
+            &nbsp; &nbsp;
+            <Typography variant="h7" style={{
+              fontFamily:"Montserrat",}
+            }>
+              {dateFormat(new Date(coin?.last_updated), "dddd, mmmm dS, yyyy, h:MM:ss TT")}
+            </Typography>
+          </span>
+          <span style={{display: "flex"}}>
+            <Typography variant="h7" className={classes.heading}>
+              24hour Volume:
+            </Typography>
+            &nbsp; &nbsp;
+            <Typography variant="h7" style={{
+              fontFamily:"Montserrat",}
+            }>
+
+              {symbol}{" "}{numberWithCommas(coin?.market_data.total_volume[currency.toLowerCase()]
+                .toString()
+                .slice(0,-6)
+              )}M
+            </Typography>
+          </span>
+        </div>
+        <div style={{marginBottom: 20}}>
+          <TextField id="outlined-basic" label="Number of coins" variant="outlined" onChange={e => setNumCoins(e.target.value)}/>
+        </div>
+
+
           {user && (
           <Button
           className={classes.portfolioadd}

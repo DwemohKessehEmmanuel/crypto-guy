@@ -34,7 +34,7 @@ sidebar:{
 const PortfolioPage = () => {
 
   const {portfolio, coins} = CryptoState()
-
+  console.log(coins);
   const classes = useStyles()
   return (
 
