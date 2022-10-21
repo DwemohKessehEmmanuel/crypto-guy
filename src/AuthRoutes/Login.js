@@ -1,4 +1,4 @@
-import { Box, Button, makeStyles, TextField } from '@material-ui/core'
+import { Box, Button, makeStyles, TextField, Container } from '@material-ui/core'
 import {  signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
@@ -12,17 +12,27 @@ const useStyles = makeStyles(()=>({
     box:{
         display: "flex",
         flexDirection: "column",
-        maxWidth : 400,
+        minWidth : "60%",
+        maxHeight: "50vh",
         justifyContent: "center",
         margin: "auto",
-        
+        padding: 50,
         borderRadius: 5,
         alignItems: "center",
-        boxShadow: "5px 5px 10px #ccc",
+        boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
         "&:hover":{
-            boxShadow:"10px 10px 20px #ccc",
+          boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px",
         },
         
+    },
+    container: {
+      width: "70%",
+      height: "70vh",
+      //background: "yellow",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
     }
 }))
 
@@ -83,13 +93,13 @@ const Login = () => {
   return (
 
 
-    <div>
+    <Container className={classes.container}>
       <form onSubmit={handleSubmit}>
         <Box className={classes.box}>
-            <div>
+            {/* <div>
               <h2>Sign for a free User Account</h2>
               
-            </div>
+            </div> */}
             
             
             <TextField
@@ -120,12 +130,12 @@ const Login = () => {
                 Login
              </Button>
              <p style={{marginTop:10,marginBottom:20, borderRadius: 3 }}>
-              Not registered? <Link to='/signup' onClick={resetState}>Sign up .</Link></p>
+              Not registered? <Link to='/signup' onClick={resetState}>Sign up</Link></p>
 
             
         </Box>
       </form>
-    </div>
+    </Container>
   )
 }
 

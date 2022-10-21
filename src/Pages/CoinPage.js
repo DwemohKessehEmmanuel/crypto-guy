@@ -3,12 +3,14 @@ import { useParams} from 'react-router-dom';
 import { SingleCoin } from '../config/api';
 import { CryptoState } from '../CryptoContext';
 import axios from 'axios';
-import { Button, LinearProgress, makeStyles, Typography } from '@material-ui/core';
+import { Button, LinearProgress, makeStyles, Typography, TextField } from '@material-ui/core';
 import CoinInfo from '../components/CoinInfo';
 import parse from 'html-react-parser'
 import { numberWithCommas } from '../components/Banner/Carousel';
 import { doc,setDoc } from 'firebase/firestore';
 import { db } from '../firebase';
+import dateFormat, { masks } from "dateformat";
+
 
 
 const useStyles = makeStyles((theme)=>({
@@ -41,15 +43,15 @@ const useStyles = makeStyles((theme)=>({
   description:{
     width: "100%",
     fontFamily: "Montserrat",
-    padding: 25,
+    padding: 10,
     paddingBottom: 15,
     paddingTop: 0,
     textAlign: "justify",
   },
   marketData:{
     alignSelf: "start",
-    padding: 25,
-    paddingTop: 10,
+    padding: 10,
+    paddingTop: 5,
     width: "100%",
     //responsiveness
     [theme.breakpoints.down("md")]: {
@@ -69,9 +71,19 @@ const useStyles = makeStyles((theme)=>({
   },
   portfolioadd:{
     alignSelf: "start",
-    padding: 25,
-    paddingTop: 10,
-    width: "100%",
+    padding: 20,
+    fontFamily: "Cursive",
+    boxShadow: 'rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px',
+    //paddingTop: 10,
+    width: "65%",
+    margin: "auto",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    backgroundColor: "#F9842C",
+    color: "white",
+    fontWeight: 700,
+    fontSize: 14,
     //responsiveness
     [theme.breakpoints.down("md")]: {
       display: "flex",
@@ -97,6 +109,7 @@ const useStyles = makeStyles((theme)=>({
 const CoinPage = () => {
   let {id} = useParams();
   const [coin, setCoin] = useState();
+  const [numCoins, setNumCoins] = useState();
   const {currency, symbol, user, portfolio, setAlert} = CryptoState();
   const classes = useStyles();
   // const navigate = useNavigate();
@@ -175,23 +188,24 @@ const CoinPage = () => {
           {parse(coin?.description.en.split(". ")[0])}
         </Typography>
         <div className={classes.marketData}>
+        <div className={classes.marketData}>
           <span style={{display: "flex"}}>
-            <Typography variant="h6" className={classes.heading}>
+            <Typography variant="h7" className={classes.heading}>
               Rank:
             </Typography>
             &nbsp; &nbsp;
-            <Typography variant="h6" style={{
+            <Typography variant="h7" style={{
               fontFamily:"Montserrat",}
             }>
               {coin?.market_cap_rank}
             </Typography>
           </span>
           <span style={{display: "flex"}}>
-            <Typography variant="h6" className={classes.heading}>
+            <Typography variant="h7" className={classes.heading}>
               Current Price:
             </Typography>
             &nbsp; &nbsp;
-            <Typography variant="h6" style={{
+            <Typography variant="h7" style={{
               fontFamily:"Montserrat",}
             }>
 
@@ -199,11 +213,11 @@ const CoinPage = () => {
             </Typography>
           </span>
           <span style={{display: "flex"}}>
-            <Typography variant="h6" className={classes.heading}>
+            <Typography variant="h7" className={classes.heading}>
               Market Cap:
             </Typography>
             &nbsp; &nbsp;
-            <Typography variant="h6" style={{
+            <Typography variant="h7" style={{
               fontFamily:"Montserrat",}
             }>
 
@@ -213,21 +227,89 @@ const CoinPage = () => {
               )}M
             </Typography>
           </span>
-          {user && (
-          <Button
-          className={classes.portfolioadd}
-          variant='outlined'
+          <span style={{display: "flex"}}>
+            <Typography variant="h7" className={classes.heading}>
+              Total Supply:
+            </Typography>
+            &nbsp; &nbsp;
+            <Typography variant="h7" style={{
+              fontFamily:"Montserrat",}
+            }>
+
+              {symbol}{" "}{numberWithCommas(coin?.market_data.total_supply
+                .toString()
+                .slice(0,-6)
+              )}M
+            </Typography>
+          </span>
+          <span style={{display: "flex"}}>
+            <Typography variant="h7" className={classes.heading}>
+              Circulating Supply:
+            </Typography>
+            &nbsp; &nbsp;
+            <Typography variant="h7" style={{
+              fontFamily:"Montserrat",}
+            }>
+
+              {symbol}{" "}{numberWithCommas(coin?.market_data.circulating_supply
+                .toString()
+                .slice(0,-6)
+              )}M
+            </Typography>
+          </span>
+          <span style={{display: "flex"}}>
+            <Typography variant="h7" className={classes.heading}>
+              Last Updated:
+            </Typography>
+            &nbsp; &nbsp;
+            <Typography variant="h7" style={{
+              fontFamily:"Montserrat",}
+            }>
+              {dateFormat(new Date(coin?.last_updated), "dddd, mmmm dS, yyyy, h:MM:ss TT")}
+            </Typography>
+          </span>
+          <span style={{display: "flex"}}>
+            <Typography variant="h7" className={classes.heading}>
+              24hour Volume:
+            </Typography>
+            &nbsp; &nbsp;
+            <Typography variant="h7" style={{
+              fontFamily:"Montserrat",}
+            }>
+
+              {symbol}{" "}{numberWithCommas(coin?.market_data.total_volume[currency.toLowerCase()]
+                .toString()
+                .slice(0,-6)
+              )}M
+            </Typography>
+          </span>
+        </div>
+        <div 
           style={{
-            width: "100%",
-            height: 40,
-            color: inPortfolio?"white" : "black",
-            backgroundColor: inPortfolio? "#dd7171": "#EEBC1D",
-          }}
-          onClick={inPortfolio? removeFromPortfolio: addToPortfolio}
-          >
-            {inPortfolio? "Remove from portfolio" : "Add to Portfolio"}
-          </Button>
-        )}
+            marginBottom: 20,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}>
+          <TextField id="outlined-basic" label="Number of coins" variant="outlined" onChange={e => setNumCoins(e.target.value)}/>
+        </div>
+
+        <div>
+        {user && (
+            <Button
+            className={classes.portfolioadd}
+            variant='outlined'
+            style={{
+              height: 40,
+              color: inPortfolio?"white" : "black",
+              backgroundColor: inPortfolio? "#dd7171": "#EEBC1D",
+            }}
+            onClick={inPortfolio? removeFromPortfolio: addToPortfolio}
+            >
+              {inPortfolio? "Remove from portfolio" : "Add to Portfolio"}
+            </Button>
+          )}
+        </div>
         </div>
         
       </div>

@@ -24,9 +24,9 @@ const useStyles = makeStyles((theme)=>({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 25,
+    marginTop: -5,
     //marginBottom: -55,
-    padding: 40,
+    padding: 20,
     [theme.breakpoints.down("md")]: {
       width: "100%",
       marginTop: 0,
