@@ -4,8 +4,11 @@ import Carousel from './Carousel';
 
 const useStyles = makeStyles(()=>({
    banner:{
+   
     backgroundImage:"url(./bannerIMG5.jpg)",
     backgroundSize: "cover",
+    
+
    },
    bannerContent:{
     height: 400,
@@ -16,20 +19,10 @@ const useStyles = makeStyles(()=>({
     }, 
     tagline:{
         display: "flex",
-        height: "45%",
+        height: "40%",
         flexDirection: "column",
         justifyContent: "center",
         textAlign: "center",
-        backgroundColor: "black", 
-        marginTop: -20,
-        marginLeft: "auto",
-        marginRight: "auto",
-        width: '65%',
-        opacity: 0.65,
-        border: 20,
-        //borderRadius: "50%"
-        // margin: "auto"
-        //paddingTop: 50,
     }
   
 }))
@@ -40,29 +33,25 @@ const Banner = () => {
   return (
     <div className={classes.banner}>
       <Container className={classes.bannerContent}>
-        <div className={classes.tagline}
-        >
+        <div className={classes.tagline}>
             <Typography
-            //variant="h2" 
+            variant="h2" 
             style={{
                 fontWeight: "bold",
-                
                 marginBottom: 20,
                 fontFamily: "Montserrat",
-                color:"white",
-                fontSize: '4vw'
-
+                color:"white"
             }}>
                 Cryptocurrency Market
             </Typography>
             <Typography
             variant="subtitle2" 
             style={{
-              color: "white",
-              textTransform: "capitalize",
-              fontFamily: "Montserrat",
-              //marginBottom:170,
-              fontSize: '1.2vw',     
+                color: "darkgrey",
+                textTransform: "capitalize",
+                fontFamily: "Montserrat",
+                marginBottom:140
+                
             }}>
                up-to-date info on all your favorite Crypto Currencies in one place
             </Typography>

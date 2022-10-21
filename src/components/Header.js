@@ -10,11 +10,7 @@ import UserSideBar from './UserSideBar';
 
 const useStyles = makeStyles(()=>({
   title:{
-    display: "flex",
     flex: 1,
-    flexDirection: "row",
-    //justifyContent: "space-between",
-    //marginRight: 20,
     color: "#e4451df3",
     fontFamily: "Cursive",
     fontWeight: "bold",
