@@ -5,6 +5,7 @@ import {numberWithCommas} from '../components/Banner/Carousel'
 import {AiFillDelete} from 'react-icons/ai';
 import { doc,setDoc } from 'firebase/firestore';
 import { db } from '../firebase';
+import PieChart from '../components/PieChart';
 
 const useStyles = makeStyles((theme)=>({
 container:{
@@ -199,19 +200,15 @@ const PortfolioPage = () => {
        
       </div>
       <div>
-      <span>
-        <Typography variant="h4" 
-         style={{margin:18, fontFamily: "Montserrat"}}>
-           Total Assets: {symbol}{" "}{numberWithCommas(totalAsset.toFixed(2))}
-       </Typography>
-       {/* {
-        coins.map((coin) =>{
-          if (portfolio.includes(coin.id)){
-            totalAsset += coin.current_price
-          }           
-       })} */}
-       
-      </span>
+        <div>
+          <Typography variant="h4" 
+            style={{margin:18, fontFamily: "Montserrat"}}>
+            Total Assets: {symbol}{" "}{numberWithCommas(totalAsset.toFixed(2))}
+          </Typography>       
+        </div>
+        <div>
+          <PieChart />
+        </div>
       </div>
     </div>    
   )
