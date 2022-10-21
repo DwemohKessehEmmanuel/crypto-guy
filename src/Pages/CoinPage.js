@@ -100,7 +100,8 @@ const useStyles = makeStyles((theme)=>({
       alignItems: "start"
       
     },
-  }
+  },
+  
 }));
 
 
@@ -117,7 +118,7 @@ const CoinPage = () => {
  
   const fetchSingleCoin = async() => {
     const {data} = await axios.get(SingleCoin(id));
-    //console.log(data);
+    console.log(data);
     setCoin(data);
   };
   //console.log(coin);

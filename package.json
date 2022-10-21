@@ -2,7 +2,7 @@
   "name": "cryptomarket",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://localhost:5000",
+  "proxy": "https://localhost:3001",
   "dependencies": {
     "@material-ui/core": "^4.12.4",
     "@material-ui/lab": "^4.0.0-alpha.61",
@@ -22,6 +22,7 @@
     "react-dom": "^18.2.0",
     "react-firebase": "^2.2.8",
     "react-html-parser": "^2.0.2",
+    "react-icons": "^4.6.0",
     "react-router-dom": "^6.4.1",
     "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
