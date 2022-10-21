@@ -14,7 +14,6 @@ const useStyles = makeStyles(()=>({
       maxWidth : 400,
       justifyContent: "center",
       margin: "auto",
-      marginTop: 100,
       borderRadius: 5,
       alignItems: "center",
       boxShadow: "5px 5px 10px #ccc",
