@@ -71,13 +71,19 @@ const useStyles = makeStyles((theme)=>({
   },
   portfolioadd:{
     alignSelf: "start",
-    padding: 25,
-    paddingTop: 10,
-    width: "60%",
+    padding: 20,
+    fontFamily: "Cursive",
+    boxShadow: 'rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px',
+    //paddingTop: 10,
+    width: "65%",
     margin: "auto",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    backgroundColor: "#F9842C",
+    color: "white",
+    fontWeight: 700,
+    fontSize: 14,
     //responsiveness
     [theme.breakpoints.down("md")]: {
       display: "flex",
