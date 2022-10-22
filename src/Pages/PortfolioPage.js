@@ -1,4 +1,4 @@
-import { LinearProgress, Typography, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
+import { LinearProgress, Button, Typography, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { CryptoState } from '../CryptoContext'
 import {numberWithCommas} from '../components/Banner/Carousel'
@@ -70,13 +70,13 @@ const PortfolioPage = () => {
   //let pricelist = [...[0], prices];
   let totalAsset = 0;
   
-  const classes = useStyles()
+  const classes = useStyles();
 
   const removeFromPortfolio = async(coin) =>{
     const coinRef = doc(db,"portfolio",user.uid );
     try{
       await setDoc(coinRef,
-        {coins:portfolio.filter((coin)=> coin !== coin?.id)},
+        {coins:portfolio.filter((cryptos)=> cryptos.id !== coin?.id)},
         {merge:true}
       );
       setAlert({
@@ -198,8 +198,17 @@ const PortfolioPage = () => {
                                                               
                             </TableCell>
                             <TableCell align="right">
-                              {symbol}{" "}{numberWithCommas(coin.coindata.market_data.current_price[currency.toLowerCase()].toFixed(2) * Number(coin.numCoins))}
-                                                              
+                              <Button
+                                className={classes.portfolioadd}
+                                variant='outlined'
+                                style={{
+                                  height: 40,
+                                  color: "white",
+                                  backgroundColor: "#dd7171",
+                                }}
+                              >
+                                  Remove
+                              </Button>                                                              
                             </TableCell>
                               
                           </TableRow>
