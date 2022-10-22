@@ -115,7 +115,9 @@ const CoinPage = () => {
     console.log(data);
     setCoin(data);
   };
-  //console.log(coin);
+  console.log(coin);
+  console.log(numCoins);
+
   useEffect(()=>{
     fetchSingleCoin()
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -130,7 +132,12 @@ const CoinPage = () => {
       await setDoc(coinRef,
         {coins:portfolio?[...portfolio,{
           id: coin?.id,
-          coindata: coin,
+          coindata: {
+            market_data: coin?.market_data,
+            name: coin?.name,
+            image: coin?.image,
+            symbol: coin?.symbol
+          },
           numCoins: numCoins
         }]:[coin?.id]}
       );

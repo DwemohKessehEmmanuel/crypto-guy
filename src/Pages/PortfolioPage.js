@@ -144,7 +144,7 @@ const PortfolioPage = () => {
                               }}
                             >
                               <img
-                                src={coin?.coindata.image}
+                                src={coin?.coindata.image.small}
                                 alt={coin.coindata.name}
                                 height="50"
                                 style={{marginBottom: 6}}
