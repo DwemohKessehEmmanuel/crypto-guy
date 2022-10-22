@@ -5,6 +5,7 @@ import {numberWithCommas} from '../components/Banner/Carousel'
 import {AiFillDelete} from 'react-icons/ai';
 import { doc,setDoc } from 'firebase/firestore';
 import { db } from '../firebase';
+import PieChart from '../components/PieChart';
 
 const useStyles = makeStyles((theme)=>({
 container:{
@@ -61,7 +62,7 @@ row:{
 const PortfolioPage = () => {
   const [prices, setPrices] = useState([]);
   const {portfolio, symbol,setAlert,user,currency, coins, loading,fetchCoins} = CryptoState()
-  console.log(prices);
+  console.log(portfolio);
   useEffect(()=>{
     fetchCoins()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -124,14 +125,16 @@ const PortfolioPage = () => {
                  </TableHead>
 
                  <TableBody>
-                   {coins.map((coin) =>{
-                      totalAsset += portfolio.includes(coin.id) ? coin.current_price : 0;
-                      const profit = coin.price_change_percentage_24h > 0;
-                      if (portfolio.includes(coin.id))
+                   {portfolio.map((coin) =>{
+                      totalAsset += coin.coindata.market_data.current_price[currency.toLowerCase()] * Number(coin.numCoins);
+                      const twfourprofit = coin.coindata.market_data.price_change_percentage_24h_in_currency[currency.toLowerCase()] > 0;
+                      const oneHprofit = coin.coindata.market_data.price_change_percentage_1h_in_currency[currency.toLowerCase()] > 0;
+                      const oneMprofit = coin.coindata.market_data.price_change_percentage_30d_in_currency[currency.toLowerCase()] > 0;
+                      // if (portfolio.includes(coin.id))
                         return(
                           <TableRow 
                             className={classes.row}
-                            key={coin.name}
+                            key={coin.coindata.name}
                           >
                             <TableCell 
                               component='th' 
@@ -141,8 +144,8 @@ const PortfolioPage = () => {
                               }}
                             >
                               <img
-                                src={coin?.image}
-                                alt={coin.name}
+                                src={coin?.coindata.image.small}
+                                alt={coin.coindata.name}
                                 height="50"
                                 style={{marginBottom: 6}}
                               />
@@ -157,33 +160,33 @@ const PortfolioPage = () => {
                                     fontSize: 22,
                                   }}
                                 >
-                                  {coin.symbol}
+                                  {coin.coindata.symbol}
                                 </span>
-                                <span style={{color: "#e4451df3"}}>{coin.name}</span>
+                                <span style={{color: "#e4451df3"}}>{coin.coindata.name}</span>
                               </div>
                             </TableCell>
                             <TableCell align="right" >
                               {symbol}{" "}
-                              {numberWithCommas(coin.current_price.toFixed(2))}                                       
+                              {numberWithCommas(coin.coindata.market_data.current_price[currency.toLowerCase()].toFixed(2))}                                       
                             </TableCell> 
                             <TableCell align="right"
-                              style={{color:profit > 0? "rgb(14,203,129" : "red",
+                              style={{color: oneHprofit > 0? "rgb(14,203,129" : "red",
                               fontweight: 500,}}
                             >
-                              {profit && '+'}{coin.price_change_percentage_1h_in_currency?.toFixed(2)}%                                 
+                              {oneHprofit && '+'}{coin.coindata.market_data.price_change_percentage_1h_in_currency[currency.toLowerCase()]?.toFixed(2)}%                                 
                             </TableCell>
                             <TableCell align="right"
-                              style={{color:profit > 0? "rgb(14,203,129" : "red",
+                              style={{color: twfourprofit > 0? "rgb(14,203,129" : "red",
                               fontweight: 500,}}
                             >
-                              {profit && '+'}{coin.price_change_percentage_24h?.toFixed(2)}%
+                              {twfourprofit && '+'}{coin.coindata.market_data.price_change_percentage_24h_in_currency[currency.toLowerCase()]?.toFixed(2)}%
                                                               
                             </TableCell>
                             <TableCell align="right"
-                              style={{color:profit > 0? "rgb(14,203,129" : "red",
+                              style={{color: oneMprofit > 0? "rgb(14,203,129" : "red",
                               fontweight: 500,}}
                             >
-                              {profit && '+'}{coin.price_change_percentage_30d_in_currency?.toFixed(2)}%
+                              {oneMprofit && '+'}{coin.coindata.market_data.price_change_percentage_30d_in_currency[currency.toLowerCase()]?.toFixed(2)}%
                                                               
                             </TableCell>
                               
@@ -199,19 +202,15 @@ const PortfolioPage = () => {
        
       </div>
       <div>
-      <span>
-        <Typography variant="h4" 
-         style={{margin:18, fontFamily: "Montserrat"}}>
-           Total Assets: {symbol}{" "}{numberWithCommas(totalAsset.toFixed(2))}
-       </Typography>
-       {/* {
-        coins.map((coin) =>{
-          if (portfolio.includes(coin.id)){
-            totalAsset += coin.current_price
-          }           
-       })} */}
-       
-      </span>
+        <div>
+          <Typography variant="h4" 
+            style={{margin:18, fontFamily: "Montserrat"}}>
+            Total Assets: {symbol}{" "}{numberWithCommas(totalAsset.toFixed(2))}
+          </Typography>       
+        </div>
+        <div>
+          <PieChart />
+        </div>
       </div>
     </div>    
   )

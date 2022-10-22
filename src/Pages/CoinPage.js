@@ -109,7 +109,7 @@ const useStyles = makeStyles((theme)=>({
 const CoinPage = () => {
   let {id} = useParams();
   const [coin, setCoin] = useState();
-  const [numCoins, setNumCoins] = useState();
+  const [numCoins, setNumCoins] = useState(1);
   const {currency, symbol, user, portfolio, setAlert} = CryptoState();
   const classes = useStyles();
   // const navigate = useNavigate();
@@ -121,19 +121,31 @@ const CoinPage = () => {
     console.log(data);
     setCoin(data);
   };
-  //console.log(coin);
+  console.log(coin);
+  console.log(numCoins);
+
   useEffect(()=>{
     fetchSingleCoin()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
   
-  const inPortfolio = portfolio.includes(coin?.id);
+  //const inPortfolio = portfolio.includes(coin?.id);
+  const inPortfolio = portfolio.find(eachob => eachob.id === coin?.id);
 
   const addToPortfolio = async()=> {
     const coinRef = doc(db,"portfolio",user.uid );
     try{
       await setDoc(coinRef,
-        {coins:portfolio?[...portfolio,coin?.id]:[coin?.id]}
+        {coins:portfolio?[...portfolio,{
+          id: coin?.id,
+          coindata: {
+            market_data: coin?.market_data,
+            name: coin?.name,
+            image: coin?.image,
+            symbol: coin?.symbol
+          },
+          numCoins: numCoins
+        }]:[coin?.id]}
       );
       setAlert({
         open: true,
@@ -153,7 +165,7 @@ const CoinPage = () => {
     const coinRef = doc(db,"portfolio",user.uid );
     try{
       await setDoc(coinRef,
-        {coins:portfolio.filter((cryptos)=> cryptos !== coin?.id)},
+        {coins:portfolio.filter((cryptos)=> cryptos.id !== coin?.id)},
         {merge:true}
       );
       setAlert({
@@ -294,7 +306,7 @@ const CoinPage = () => {
           <TextField id="outlined-basic" label="Number of coins" variant="outlined" onChange={e => setNumCoins(e.target.value)}/>
         </div>
 
-        <div>
+        <div >
         {user && (
             <Button
             className={classes.portfolioadd}

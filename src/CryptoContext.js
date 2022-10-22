@@ -21,7 +21,7 @@ const CryptoContext = ({children}) => {
   type: "success"
  })
  const [portfolio, setPortfolio] = useState([])
-
+ console.log(portfolio);
  useEffect(()=>{
   if(user){
     const coinRef = doc(db,"portfolio",user.uid );
