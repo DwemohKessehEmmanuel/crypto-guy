@@ -24,7 +24,7 @@ container:{
     }
 },
 sidebar:{
-  width: "55%",
+  width: "65%",
   minHeight: "80vh",
     [theme.breakpoints.down("md")]: {
       width: "100%",
@@ -109,7 +109,7 @@ const PortfolioPage = () => {
                <Table>
                  <TableHead style={{backgroundColor: "#EEBC1D"}}>
                    <TableRow>
-                     {["Coin", "Price", "+/- 1 hr", "+/- 24hrs", "+/- 1 month"].map((head)=>(
+                     {["Coin", "Price", "+/- 1 hr", "+/- 24hrs", "+/- 1 month", "Number", "Total", ""].map((head)=>(
                        <TableCell 
                        style={{color: "black",
                        fontWeight: "700",
@@ -140,14 +140,14 @@ const PortfolioPage = () => {
                               component='th' 
                               scope="row"
                               style={{display: "flex",
-                                gap:15,
+                                gap:10,
                               }}
                             >
                               <img
                                 src={coin?.coindata.image.small}
                                 alt={coin.coindata.name}
-                                height="50"
-                                style={{marginBottom: 6}}
+                                height="40"
+                                style={{marginBottom: 3}}
                               />
                               <div
                                 style={{display: "flex",
@@ -157,7 +157,7 @@ const PortfolioPage = () => {
                                 <span
                                   style={{
                                     textTransform: "uppercase",
-                                    fontSize: 22,
+                                    fontSize: 18,
                                   }}
                                 >
                                   {coin.coindata.symbol}
@@ -187,6 +187,18 @@ const PortfolioPage = () => {
                               fontweight: 500,}}
                             >
                               {oneMprofit && '+'}{coin.coindata.market_data.price_change_percentage_30d_in_currency[currency.toLowerCase()]?.toFixed(2)}%
+                                                              
+                            </TableCell>
+                            <TableCell align="right">
+                              {Number(coin.numCoins)}
+                                                              
+                            </TableCell>
+                            <TableCell align="right">
+                              {symbol}{" "}{numberWithCommas(coin.coindata.market_data.current_price[currency.toLowerCase()].toFixed(2) * Number(coin.numCoins))}
+                                                              
+                            </TableCell>
+                            <TableCell align="right">
+                              {symbol}{" "}{numberWithCommas(coin.coindata.market_data.current_price[currency.toLowerCase()].toFixed(2) * Number(coin.numCoins))}
                                                               
                             </TableCell>
                               
