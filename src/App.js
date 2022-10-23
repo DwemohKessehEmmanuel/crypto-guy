@@ -14,7 +14,7 @@ import ProtectRoute from './components/ProtectRoute';
 
 const useStyles = makeStyles(()=>({
     App:{
-      backgroundColor:"white",
+      backgroundColor:"#fcd6bafd",
       color: "black",
       minHeight:"100vh"
     },
