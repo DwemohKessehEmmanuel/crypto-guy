@@ -75,17 +75,17 @@ const PortfolioPage = () => {
   
   const classes = useStyles();
 
-  const removeFromPortfolio = async(coinId) =>{
+  const removeFromPortfolio = async(coin) =>{
     const coinRef = doc(db,"portfolio",user.uid );
     try{
       await setDoc(coinRef,
         // {coins:portfolio.splice(portfolio.findIndex(x => x.coindata.symbol === coinId), 1)},
-        {coins:portfolio.filter((x) => x.coindata.symbol !== coinId)},
+        {coins:portfolio.filter((x) => x.id !== coin.id)},
         {merge:true}
       );
       setAlert({
         open: true,
-        message: ` Removed from your portfolio !`,
+        message: `${coin.coindata.name} Removed from your portfolio !`,
         type: "success",
       })
     }catch(error){
@@ -129,7 +129,7 @@ const PortfolioPage = () => {
                  </TableHead>
 
                  <TableBody>
-                   {portfolio.map((coin) =>{
+                   {portfolio.map((coin, i) =>{
                       totalAsset += coin.coindata.market_data.current_price[currency.toLowerCase()] * Number(coin.numCoins);
                       const twfourprofit = coin.coindata.market_data.price_change_percentage_24h_in_currency[currency.toLowerCase()] > 0;
                       const oneHprofit = coin.coindata.market_data.price_change_percentage_1h_in_currency[currency.toLowerCase()] > 0;
@@ -211,8 +211,8 @@ const PortfolioPage = () => {
                                   backgroundColor: "#dd7171",
                                   
                                 }}
-                                value={coin.coindata.symbol}
-                                onClick={(e) => removeFromPortfolio(e.target.value)}
+                                // value={coin.coindata.symbol}
+                                onClick={() => removeFromPortfolio(coin)}
                               >
                                   Remove
                               </Button>                                                              
