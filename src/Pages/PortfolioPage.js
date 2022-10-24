@@ -56,7 +56,10 @@ row:{
   },
   fontFamily: "Montserrat",
   
-}
+},
+// portfolioadd: {
+  
+// }
 }))
 
 const PortfolioPage = () => {
@@ -72,16 +75,17 @@ const PortfolioPage = () => {
   
   const classes = useStyles();
 
-  const removeFromPortfolio = async(coin) =>{
+  const removeFromPortfolio = async(coinId) =>{
     const coinRef = doc(db,"portfolio",user.uid );
     try{
       await setDoc(coinRef,
-        {coins:portfolio.filter((cryptos)=> cryptos.id !== coin?.id)},
+        // {coins:portfolio.splice(portfolio.findIndex(x => x.coindata.symbol === coinId), 1)},
+        {coins:portfolio.filter((x) => x.coindata.symbol !== coinId)},
         {merge:true}
       );
       setAlert({
         open: true,
-        message: `${coin.name} Removed from your portfolio !`,
+        message: ` Removed from your portfolio !`,
         type: "success",
       })
     }catch(error){
@@ -205,7 +209,10 @@ const PortfolioPage = () => {
                                   height: 40,
                                   color: "white",
                                   backgroundColor: "#dd7171",
+                                  
                                 }}
+                                value={coin.coindata.symbol}
+                                onClick={(e) => removeFromPortfolio(e.target.value)}
                               >
                                   Remove
                               </Button>                                                              
