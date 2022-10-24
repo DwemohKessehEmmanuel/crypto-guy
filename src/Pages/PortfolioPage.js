@@ -56,7 +56,10 @@ row:{
   },
   fontFamily: "Montserrat",
   
-}
+},
+// portfolioadd: {
+  
+// }
 }))
 
 const PortfolioPage = () => {
@@ -69,19 +72,27 @@ const PortfolioPage = () => {
 },[currency]);
   //let pricelist = [...[0], prices];
   let totalAsset = 0;
-  
+  let totalsArray = [];
+  let coinnames = [];
+
+  // let chartdata = {
+  //   totalsArray: totalsArray,
+  //   coinnames: coinnames
+  // }
+
   const classes = useStyles();
 
   const removeFromPortfolio = async(coin) =>{
     const coinRef = doc(db,"portfolio",user.uid );
     try{
       await setDoc(coinRef,
-        {coins:portfolio.filter((cryptos)=> cryptos.id !== coin?.id)},
+        // {coins:portfolio.splice(portfolio.findIndex(x => x.coindata.symbol === coinId), 1)},
+        {coins:portfolio.filter((x) => x.id !== coin.id)},
         {merge:true}
       );
       setAlert({
         open: true,
-        message: `${coin.name} Removed from your portfolio !`,
+        message: `${coin.coindata.name} Removed from your portfolio !`,
         type: "success",
       })
     }catch(error){
@@ -109,7 +120,7 @@ const PortfolioPage = () => {
                <Table>
                  <TableHead style={{backgroundColor: "#EEBC1D"}}>
                    <TableRow>
-                     {["Coin", "Price", "+/- 1 hr", "+/- 24hrs", "+/- 1 month", "Number", "Total", ""].map((head)=>(
+                     {["Coin", "Price", "+/- 1 hr", "+/- 24 hrs", "+/- 1 month", "Number", ""].map((head)=>(
                        <TableCell 
                        style={{color: "black",
                        fontWeight: "700",
@@ -125,8 +136,12 @@ const PortfolioPage = () => {
                  </TableHead>
 
                  <TableBody>
-                   {portfolio.map((coin) =>{
+                   {portfolio.map((coin, i) =>{
                       totalAsset += coin.coindata.market_data.current_price[currency.toLowerCase()] * Number(coin.numCoins);
+                      totalsArray = [...totalsArray, (coin.coindata.market_data.current_price[currency.toLowerCase()] * Number(coin.numCoins))];
+                      console.log(totalsArray);
+                      coinnames = [...coinnames, (coin.coindata.name)];
+                      console.log(coinnames);
                       const twfourprofit = coin.coindata.market_data.price_change_percentage_24h_in_currency[currency.toLowerCase()] > 0;
                       const oneHprofit = coin.coindata.market_data.price_change_percentage_1h_in_currency[currency.toLowerCase()] > 0;
                       const oneMprofit = coin.coindata.market_data.price_change_percentage_30d_in_currency[currency.toLowerCase()] > 0;
@@ -140,7 +155,7 @@ const PortfolioPage = () => {
                               component='th' 
                               scope="row"
                               style={{display: "flex",
-                                gap:10,
+                                gap:15,
                               }}
                             >
                               <img
@@ -189,23 +204,31 @@ const PortfolioPage = () => {
                               {oneMprofit && '+'}{coin.coindata.market_data.price_change_percentage_30d_in_currency[currency.toLowerCase()]?.toFixed(2)}%
                                                               
                             </TableCell>
-                            <TableCell align="right">
-                              {Number(coin.numCoins)}
-                                                              
+                            <TableCell align="center" style={{display: "flex",
+                              flexDirection: "column",
+                              }}
+                            >
+                              <span>{Number(coin.numCoins)}</span>
+                              {/* {symbol}{" "}{numberWithCommas(coin.coindata.market_data.current_price[currency.toLowerCase()].toFixed(2) * Number(coin.numCoins))} */}
+                               
                             </TableCell>
-                            <TableCell align="right">
-                              {symbol}{" "}{numberWithCommas(coin.coindata.market_data.current_price[currency.toLowerCase()].toFixed(2) * Number(coin.numCoins))}
+                            {/* <TableCell align="right">
                                                               
-                            </TableCell>
+                            </TableCell> */}
                             <TableCell align="right">
                               <Button
                                 className={classes.portfolioadd}
                                 variant='outlined'
                                 style={{
                                   height: 40,
+                                  width: 20,
+                                  fontSize: 12,
                                   color: "white",
                                   backgroundColor: "#dd7171",
+                                  
                                 }}
+                                // value={coin.coindata.symbol}
+                                onClick={() => removeFromPortfolio(coin)}
                               >
                                   Remove
                               </Button>                                                              
@@ -230,7 +253,7 @@ const PortfolioPage = () => {
           </Typography>       
         </div>
         <div>
-          <PieChart />
+          <PieChart data={{names: coinnames, totals: totalsArray}}/>
         </div>
       </div>
     </div>    
