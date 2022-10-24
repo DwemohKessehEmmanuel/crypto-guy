@@ -73,6 +73,12 @@ const PortfolioPage = () => {
   //let pricelist = [...[0], prices];
   let totalAsset = 0;
   let totalsArray = [];
+  let coinnames = [];
+
+  // let chartdata = {
+  //   totalsArray: totalsArray,
+  //   coinnames: coinnames
+  // }
 
   const classes = useStyles();
 
@@ -134,6 +140,8 @@ const PortfolioPage = () => {
                       totalAsset += coin.coindata.market_data.current_price[currency.toLowerCase()] * Number(coin.numCoins);
                       totalsArray = [...totalsArray, (coin.coindata.market_data.current_price[currency.toLowerCase()] * Number(coin.numCoins))];
                       console.log(totalsArray);
+                      coinnames = [...coinnames, (coin.coindata.name)];
+                      console.log(coinnames);
                       const twfourprofit = coin.coindata.market_data.price_change_percentage_24h_in_currency[currency.toLowerCase()] > 0;
                       const oneHprofit = coin.coindata.market_data.price_change_percentage_1h_in_currency[currency.toLowerCase()] > 0;
                       const oneMprofit = coin.coindata.market_data.price_change_percentage_30d_in_currency[currency.toLowerCase()] > 0;
@@ -240,7 +248,7 @@ const PortfolioPage = () => {
           </Typography>       
         </div>
         <div>
-          <PieChart />
+          <PieChart data={{names: coinnames, totals: totalsArray}}/>
         </div>
       </div>
     </div>    
