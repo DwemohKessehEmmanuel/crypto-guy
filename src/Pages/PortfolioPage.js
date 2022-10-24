@@ -120,7 +120,7 @@ const PortfolioPage = () => {
                <Table>
                  <TableHead style={{backgroundColor: "#EEBC1D"}}>
                    <TableRow>
-                     {["Coin", "Price", "+/- 1 hr", "+/- 24hrs", "+/- 1 month", "Number", "Total", ""].map((head)=>(
+                     {["Coin", "Price", "+/- 1 hr", "+/- 24hrs", "+/- 1 month", "Number", ""].map((head)=>(
                        <TableCell 
                        style={{color: "black",
                        fontWeight: "700",
@@ -204,14 +204,17 @@ const PortfolioPage = () => {
                               {oneMprofit && '+'}{coin.coindata.market_data.price_change_percentage_30d_in_currency[currency.toLowerCase()]?.toFixed(2)}%
                                                               
                             </TableCell>
-                            <TableCell align="right">
-                              {Number(coin.numCoins)}
-                                                              
-                            </TableCell>
-                            <TableCell align="right">
+                            <TableCell align="center" style={{display: "flex",
+                              flexDirection: "column",
+                              }}
+                            >
+                              <span>({Number(coin.numCoins)})</span>
                               {symbol}{" "}{numberWithCommas(coin.coindata.market_data.current_price[currency.toLowerCase()].toFixed(2) * Number(coin.numCoins))}
-                                                              
+                               
                             </TableCell>
+                            {/* <TableCell align="right">
+                                                              
+                            </TableCell> */}
                             <TableCell align="right">
                               <Button
                                 className={classes.portfolioadd}
