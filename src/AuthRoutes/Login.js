@@ -33,6 +33,17 @@ const useStyles = makeStyles(()=>({
       flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
+    },
+    button: {
+      "&:hover": {
+        fontWeight: 700
+      }
+    },
+    signlink: {
+      color: "#7393B3",
+      "&:hover": {
+        color: "#71797E"
+      }
     }
 }))
 
@@ -126,11 +137,12 @@ const Login = () => {
             style={{marginTop:30,marginBottom:30, borderRadius: 3 }} 
             variant="contained"
             color= "warning"
+            className={classes.button}
              >
                 Login
              </Button>
              <p style={{marginTop:10,marginBottom:20, borderRadius: 3 }}>
-              Not registered? <Link to='/signup' onClick={resetState}>Sign up</Link></p>
+              Not registered? <Link to='/signup' onClick={resetState} className={classes.signlink}>Sign up</Link></p>
 
             
         </Box>
