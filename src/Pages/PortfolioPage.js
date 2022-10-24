@@ -120,7 +120,7 @@ const PortfolioPage = () => {
                <Table>
                  <TableHead style={{backgroundColor: "#EEBC1D"}}>
                    <TableRow>
-                     {["Coin", "Price", "+/- 1 hr", "+/- 24hrs", "+/- 1 month", "Number", ""].map((head)=>(
+                     {["Coin", "Price", "+/- 1 hr", "+/- 24 hrs", "+/- 1 month", "Number", ""].map((head)=>(
                        <TableCell 
                        style={{color: "black",
                        fontWeight: "700",
@@ -155,7 +155,7 @@ const PortfolioPage = () => {
                               component='th' 
                               scope="row"
                               style={{display: "flex",
-                                gap:10,
+                                gap:15,
                               }}
                             >
                               <img
@@ -208,8 +208,8 @@ const PortfolioPage = () => {
                               flexDirection: "column",
                               }}
                             >
-                              <span>({Number(coin.numCoins)})</span>
-                              {symbol}{" "}{numberWithCommas(coin.coindata.market_data.current_price[currency.toLowerCase()].toFixed(2) * Number(coin.numCoins))}
+                              <span>{Number(coin.numCoins)}</span>
+                              {/* {symbol}{" "}{numberWithCommas(coin.coindata.market_data.current_price[currency.toLowerCase()].toFixed(2) * Number(coin.numCoins))} */}
                                
                             </TableCell>
                             {/* <TableCell align="right">
@@ -221,6 +221,8 @@ const PortfolioPage = () => {
                                 variant='outlined'
                                 style={{
                                   height: 40,
+                                  width: 20,
+                                  fontSize: 12,
                                   color: "white",
                                   backgroundColor: "#dd7171",
                                   
