@@ -72,7 +72,8 @@ const PortfolioPage = () => {
 },[currency]);
   //let pricelist = [...[0], prices];
   let totalAsset = 0;
-  
+  let totalsArray = [];
+
   const classes = useStyles();
 
   const removeFromPortfolio = async(coin) =>{
@@ -131,6 +132,8 @@ const PortfolioPage = () => {
                  <TableBody>
                    {portfolio.map((coin, i) =>{
                       totalAsset += coin.coindata.market_data.current_price[currency.toLowerCase()] * Number(coin.numCoins);
+                      totalsArray = [...totalsArray, (coin.coindata.market_data.current_price[currency.toLowerCase()] * Number(coin.numCoins))];
+                      console.log(totalsArray);
                       const twfourprofit = coin.coindata.market_data.price_change_percentage_24h_in_currency[currency.toLowerCase()] > 0;
                       const oneHprofit = coin.coindata.market_data.price_change_percentage_1h_in_currency[currency.toLowerCase()] > 0;
                       const oneMprofit = coin.coindata.market_data.price_change_percentage_30d_in_currency[currency.toLowerCase()] > 0;
