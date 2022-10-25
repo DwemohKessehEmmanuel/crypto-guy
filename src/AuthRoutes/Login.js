@@ -6,14 +6,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { CryptoState } from '../CryptoContext';
 import { auth } from '../firebase';
 
-const useStyles = makeStyles(()=>({
+const useStyles = makeStyles((theme)=>({
     
     
     box:{
         display: "flex",
         flexDirection: "column",
         minWidth : "60%",
-        maxHeight: "50vh",
+        minHeight: "50vh",
         justifyContent: "center",
         margin: "auto",
         padding: 50,
@@ -23,7 +23,13 @@ const useStyles = makeStyles(()=>({
         "&:hover":{
           boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px",
         },
-        
+        [theme.breakpoints.down("md")]: {
+          width: "95%",
+          paddingLeft: 5,
+          paddingRight: 5,
+          height: "95%"
+          
+        },
     },
     container: {
       width: "70%",
@@ -33,7 +39,18 @@ const useStyles = makeStyles(()=>({
       flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
+      margin: "auto",
+      [theme.breakpoints.down("md")]: {
+        width: "90%",
+        height: "60vh",
+        paddingTop: "10%",
+      },
+      [theme.breakpoints.down("sm")]: {
+        width: "90%",
+        height: "60vh"
+      },
     },
+    
     button: {
       "&:hover": {
         fontWeight: 700
@@ -44,6 +61,28 @@ const useStyles = makeStyles(()=>({
       "&:hover": {
         color: "#71797E"
       }
+    },
+    field: {
+      [theme.breakpoints.down("md")]: {
+        height: 20,
+        marginBottom: 30,
+        width: "70%"
+      },
+      [theme.breakpoints.down("sm")]: {
+        height: 20,
+        marginBottom: 30,
+        width: "90%"
+      },
+    },
+    form: {
+      [theme.breakpoints.down("md")]: {
+        width: "90%",
+        height: "60vh"
+      },
+      [theme.breakpoints.down("sm")]: {
+        width: "90%",
+        height: "60vh"
+      },
     }
 }))
 
@@ -105,7 +144,7 @@ const Login = () => {
 
 
     <Container className={classes.container}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={classes.form}>
         <Box className={classes.box}>
             {/* <div>
               <h2>Sign for a free User Account</h2>
@@ -114,13 +153,14 @@ const Login = () => {
             
             
             <TextField
-            onChange={handleChange} 
-            name='email'
-            value={inputs.email}
-             margin='normal' 
-             type={'email'}  
-             placeholder="Email" 
-             variant="outlined"
+              onChange={handleChange} 
+              name='email'
+              value={inputs.email}
+              margin='normal' 
+              type={'email'}  
+              placeholder="Email" 
+              variant="outlined"
+              className={classes.field}
              />
             <TextField 
               onChange={handleChange} 
@@ -130,6 +170,7 @@ const Login = () => {
               type={'password'} 
               placeholder="Password"
               variant="outlined"
+              className={classes.field}
              />
             
             <Button

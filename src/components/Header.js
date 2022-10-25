@@ -13,9 +13,16 @@ const useStyles = makeStyles(()=>({
     flex: 1,
     color: "#e4451df3",
     fontFamily: "Cursive",
-    fontWeight: "bold",
+    fontWeight: 700,
     cursor: "pointer",
+    width: 200,
+    
   },
+  // typostyle: {
+  //   "&:hover": {
+  //     color: "#7393B3"
+  //   }
+  // },
   formControl:{
     minWidth: 110,
     paddingRight: 50,
@@ -60,9 +67,10 @@ const Header = () => {
       }
       
     },
-    // typography:{
-    //   //fontFamily: "Montserrat"
-    // }
+     typography:{
+       fontFamily: "Cursive",
+      fontWeight: 700,
+     }
   });
   
   
@@ -73,7 +81,7 @@ const Header = () => {
           <Toolbar>
                     
             <div className={classes.title}>
-              <Typography onClick={()=>navigate("/")} variant={"h5"} style={{marginRight: 20}}>
+              <Typography onClick={()=>navigate("/")} variant={"h5"} style={{marginRight: 20}} className={classes.typostyle}>
                 Cryptocurrency Market
               </Typography>
               

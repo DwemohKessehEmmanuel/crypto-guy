@@ -80,7 +80,7 @@ const CoinsTable = () => {
    <ThemeProvider theme={CoinTableTheme}>
      <Container style={{textAlign: "Center"}}>
        <Typography variant="h4" 
-         style={{margin:18, fontFamily: "Montserrat"}}>
+         style={{margin:18, fontFamily: "Montserrat", fontWeight: 400}}>
            Crytocurrency Prices by Market Cap
        </Typography>
        <TextField label="Search for a Crypto Here!" 

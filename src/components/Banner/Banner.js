@@ -1,8 +1,20 @@
-import { Container, makeStyles, Typography} from '@material-ui/core';
+import { Container, makeStyles, Typography, createTheme } from '@material-ui/core';
 import React from 'react'
 import Carousel from './Carousel';
 
-const useStyles = makeStyles(()=>({
+// const theme = createTheme({
+//   breakpoints: {
+//     values: {
+//       xs: 0,
+//       sm: 600,
+//       md: 900,
+//       lg: 1200,
+//       xl: 1536,
+//     },
+//   },
+// });
+
+const useStyles = makeStyles((theme)=>({
    banner:{
     backgroundImage:"url(./bannerIMG5.jpg)",
     backgroundSize: "cover",
@@ -30,6 +42,25 @@ const useStyles = makeStyles(()=>({
         //borderRadius: "50%"
         // margin: "auto"
         //paddingTop: 50,
+    },
+    bannerText: {
+      [theme.breakpoints.down("sm")]: {
+        height: "30%",
+        fontSize: "2vw",
+        paddingLeft: 20,
+        paddingRight: 20,
+
+      },
+    },
+    bannerHead: {
+      fontWeight: "bold",        
+      marginBottom: 20,
+      fontFamily: "Montserrat",
+      color:"white",
+      fontSize: '4vw',
+      [theme.breakpoints.down("sm")]: {
+        marginBottom: 10
+      }
     }
   
 }))
@@ -44,25 +75,22 @@ const Banner = () => {
         >
             <Typography
             //variant="h2" 
+            className={classes.bannerHead}
             style={{
-                fontWeight: "bold",
                 
-                marginBottom: 20,
-                fontFamily: "Montserrat",
-                color:"white",
-                fontSize: '4vw'
 
             }}>
                 Cryptocurrency Market
             </Typography>
             <Typography
+            className={classes.bannerText}
             variant="subtitle2" 
             style={{
               color: "white",
               textTransform: "capitalize",
               fontFamily: "Montserrat",
               //marginBottom:170,
-              fontSize: '1.2vw',     
+              //fontSize: '1.2vw',     
             }}>
                up-to-date info on all your favorite Crypto Currencies in one place
             </Typography>

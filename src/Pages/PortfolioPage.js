@@ -109,7 +109,7 @@ const PortfolioPage = () => {
     <div className={classes.container}>
       <div className={classes.sidebar}>
        <Typography variant="h4" 
-         style={{margin:18, fontFamily: "Montserrat"}}>
+         style={{padding:18, fontFamily: "Montserrat"}}>
            Your Assets
        </Typography>
        <TableContainer>
@@ -120,7 +120,7 @@ const PortfolioPage = () => {
                <Table>
                  <TableHead style={{backgroundColor: "#EEBC1D"}}>
                    <TableRow>
-                     {["Coin", "Price", "+/- 1 hr", "+/- 24 hrs", "+/- 1 month", "Number", ""].map((head)=>(
+                     {["Coin", "Price", " 1 hr", " 24 hrs", " 1 month", "Number", ""].map((head)=>(
                        <TableCell 
                        style={{color: "black",
                        fontWeight: "700",
@@ -248,7 +248,7 @@ const PortfolioPage = () => {
       <div>
         <div>
           <Typography variant="h4" 
-            style={{margin:18, fontFamily: "Montserrat"}}>
+            style={{padding:18, fontFamily: "Montserrat"}}>
             Total Assets: {symbol}{" "}{numberWithCommas(totalAsset.toFixed(2))}
           </Typography>       
         </div>

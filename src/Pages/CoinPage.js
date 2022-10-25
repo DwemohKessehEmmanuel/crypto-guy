@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme)=>({
     paddingBottom: 15,
     paddingTop: 0,
     textAlign: "justify",
+    //color: "#71797E",
   },
   marketData:{
     alignSelf: "start",
