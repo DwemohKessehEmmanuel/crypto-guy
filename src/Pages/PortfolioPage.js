@@ -14,27 +14,26 @@ container:{
   margin: 5,
   backgroundColor: "initial",
   // borderRadius: 10,
-  // flexDirection:"column",
-  // alignItems: "center",
+  flexDirection:"column-reverse",
+  alignItems: "center",
   //justifyContent: "space-between",
     [theme.breakpoints.down("md")]: {
-      flexDirection: "column",
+      flexDirection: "column-reverse",
       alignItems: "center",
       
     }
 },
 sidebar:{
-  width: "65%",
-  minHeight: "80vh",
-    [theme.breakpoints.down("md")]: {
-      width: "100%",
-      
-    },
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    marginTop: 25,
-    borderRight: "2px solid black",
+  minWidth: "80%",
+  //minHeight: "80vh",
+  [theme.breakpoints.down("md")]: {
+    width: "100%", 
+  },
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  marginTop: 25,
+  //borderRight: "2px solid black",
 },
 coin:{
   padding: 5,
@@ -57,9 +56,75 @@ row:{
   fontFamily: "Montserrat",
   
 },
-// portfolioadd: {
+tolChart:{
+  display: "flex",
+  flexDirection: "row",
+  minHeight: "50vh",
+  width: "70vw",
+  alignItems: "center",
+  justifyContent: "center",
+  boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+  [theme.breakpoints.down("md")]: {
+    flexDirection: "column",
+    minHeight: "40vh",
+  },
+  [theme.breakpoints.down(480)]: {
+    width: "80vw"
+  }
+},
+chart: {
+  height: "100%",
+  width: "50%",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  paddingTop: 0,
+  [theme.breakpoints.down("md")]: {
+    width: "60%",
+  },
+  [theme.breakpoints.down("sm")]: {
+    width: "70%",
+  },
+  [theme.breakpoints.down(750)]: {
+    width: "80%",
+  },
+  [theme.breakpoints.down(600)]: {
+    width: "90%",
+  },
+  [theme.breakpoints.down(480)]: {
+    width: "100%",
+  },[theme.breakpoints.down(430)]: {
+    width: "105%",
+  },
+  [theme.breakpoints.down(390)]: {
+    width: "110%",
+  }
+},
+totalAssets: {
+  display: "flex",
+  //width: "50%",
+  flexDirection: "row",
+  padding:18, 
+  //fontFamily: "Montserrat", 
+  fontSize: 30,
   
-// }
+},
+typo: {
+  fontSize: "2.2vw",
+  fontFamily: "Montserrat",
+  [theme.breakpoints.down("md")]: {
+    fontSize: "3vw",
+  },
+  [theme.breakpoints.down(750)]: {
+    fontSize: "4vw",
+  },
+  [theme.breakpoints.down(480)]: {
+    fontSize: "4.5vw",
+  },
+  [theme.breakpoints.down(390)]: {
+    fontSize: "4.8vw",
+  }
+}
 }))
 
 const PortfolioPage = () => {
@@ -204,11 +269,12 @@ const PortfolioPage = () => {
                               {oneMprofit && '+'}{coin.coindata.market_data.price_change_percentage_30d_in_currency[currency.toLowerCase()]?.toFixed(2)}%
                                                               
                             </TableCell>
-                            <TableCell align="center" style={{display: "flex",
-                              flexDirection: "column",
-                              }}
+                            <TableCell align="center" 
+                              // style={{display: "flex",
+                              // flexDirection: "column",
+                              // }}
                             >
-                              <span>{Number(coin.numCoins)}</span>
+                              {Number(coin.numCoins)}
                               {/* {symbol}{" "}{numberWithCommas(coin.coindata.market_data.current_price[currency.toLowerCase()].toFixed(2) * Number(coin.numCoins))} */}
                                
                             </TableCell>
@@ -245,14 +311,22 @@ const PortfolioPage = () => {
        </TableContainer>
        
       </div>
-      <div>
-        <div>
-          <Typography variant="h4" 
-            style={{padding:18, fontFamily: "Montserrat"}}>
-            Total Assets: {symbol}{" "}{numberWithCommas(totalAsset.toFixed(2))}
+      <div className={classes.tolChart}>
+        <div className={classes.totalAssets}>
+          <Typography 
+            className={classes.typo}
+            // style={{padding:18, fontFamily: "Montserrat", fontSize: "2.2vw"}}
+          >
+            Total Assets: 
+          </Typography>
+          <Typography 
+            className={classes.typo}
+            // style={{padding:18, fontFamily: "Montserrat", fontSize: "2.2vw"}}
+          >
+            {symbol}{" "}{numberWithCommas(totalAsset.toFixed(2))}
           </Typography>       
         </div>
-        <div>
+        <div className={classes.chart}>
           <PieChart data={{names: coinnames, totals: totalsArray}}/>
         </div>
       </div>
