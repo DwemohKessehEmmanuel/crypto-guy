@@ -16,8 +16,11 @@ import Carousel from './Carousel';
 
 const useStyles = makeStyles((theme)=>({
    banner:{
+   
     backgroundImage:"url(./bannerIMG5.jpg)",
     backgroundSize: "cover",
+    
+
    },
    bannerContent:{
     height: 400,
@@ -28,7 +31,7 @@ const useStyles = makeStyles((theme)=>({
     }, 
     tagline:{
         display: "flex",
-        height: "45%",
+        height: "40%",
         flexDirection: "column",
         justifyContent: "center",
         textAlign: "center",
@@ -71,8 +74,7 @@ const Banner = () => {
   return (
     <div className={classes.banner}>
       <Container className={classes.bannerContent}>
-        <div className={classes.tagline}
-        >
+        <div className={classes.tagline}>
             <Typography
             //variant="h2" 
             className={classes.bannerHead}
