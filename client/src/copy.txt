@@ -1,0 +1,36 @@
+<div className={classes.sidebar}>
+        {coins.map((coin) =>{
+          if (portfolio.includes(coin.id))
+          return (
+            
+            <div className={classes.coin}>
+              <span>{coin.name}</span>
+              <span style={{display: "flex", gap: 8}}>
+                {symbol}
+                {numberWithCommas(coin.current_price.toFixed(2))}
+                <AiFillDelete
+                  style={{cursor: "pointer"}}
+                  fontSize="16"
+                  onClick={() => removeFromPortfolio(coin)}
+                  />
+              </span>
+            </div>
+            
+          )
+        })}
+       
+      </div>
+
+      const fetchSingleCoin = async() => {
+    const {data} = await axios.get(SingleCoin(id));
+    console.log(data);
+    setCoin(data);
+  };
+
+  then((response)=> response.json()).then((json)=>{
+                console.log(json)
+                res.json(json)
+
+              <Route path="/portfolio" element={<><Header/> <PortfolioPage/></>}/>
+                <Route path="/login" element={<Login/>}/>
+          <Route path="/signup" element={<SignUp/>}/>
