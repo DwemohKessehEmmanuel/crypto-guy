@@ -1,4 +1,4 @@
-import { Container, makeStyles, Typography, createTheme } from '@material-ui/core';
+import { Container, makeStyles, Typography } from '@material-ui/core';
 import React from 'react'
 import Carousel from './Carousel';
 

@@ -1,8 +1,7 @@
 import { LinearProgress, Button, Typography, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
-import { CryptoState } from '../CryptoContext'
-import {numberWithCommas} from '../components/Banner/Carousel'
-import {AiFillDelete} from 'react-icons/ai';
+import React, { useEffect } from 'react';
+import { CryptoState } from '../CryptoContext';
+import {numberWithCommas} from '../components/Banner/Carousel';
 import { doc,setDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import PieChart from '../components/PieChart';
@@ -128,8 +127,7 @@ typo: {
 }))
 
 const PortfolioPage = () => {
-  const [prices, setPrices] = useState([]);
-  const {portfolio, symbol,setAlert,user,currency, coins, loading,fetchCoins} = CryptoState()
+  const {portfolio, symbol,setAlert,user,currency, loading,fetchCoins} = CryptoState()
   console.log(portfolio);
   useEffect(()=>{
     fetchCoins()

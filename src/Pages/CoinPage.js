@@ -9,7 +9,7 @@ import parse from 'html-react-parser'
 import { numberWithCommas } from '../components/Banner/Carousel';
 import { doc,setDoc } from 'firebase/firestore';
 import { db } from '../firebase';
-import dateFormat, { masks } from "dateformat";
+import dateFormat from "dateformat";
 
 
 
