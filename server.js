@@ -16,11 +16,10 @@ app.get('/allcoin',async(req,res)=>{
     let parsedCurrency = req.query.vs_currency;
     const options = {
         method: 'GET',
-        url: 'https://coingecko.p.rapidapi.com/coins/markets',
+        url: 'https://api.coingecko.com/api/v3/coins/markets',
         params: {vs_currency: parsedCurrency, page: '1', per_page: '100', order: 'market_cap_desc'},
         headers: {
-          'X-RapidAPI-Key': '7c5e697bcamsh67b9d2a73035814p146b5fjsn82d8af536696',
-          'X-RapidAPI-Host': 'coingecko.p.rapidapi.com'
+          'accept': 'application/json',
         }
       };
       
@@ -36,7 +35,7 @@ app.get('/trendlist',async(req,res)=>{
     const parsedCurrency = req.query.vs_currency;
     const options = {
         method: 'GET',
-        url: 'https://coingecko.p.rapidapi.com/coins/markets',
+        url: 'https://api.coingecko.com/api/v3/coins/markets',
         params: {
           vs_currency: parsedCurrency,
           price_change_percentage: '24',
@@ -46,8 +45,7 @@ app.get('/trendlist',async(req,res)=>{
           order: 'geckodesc'
         },
         headers: {
-          'X-RapidAPI-Key': '7c5e697bcamsh67b9d2a73035814p146b5fjsn82d8af536696',
-          'X-RapidAPI-Host': 'coingecko.p.rapidapi.com'
+          'accept': 'application/json',
         }
       };
       
