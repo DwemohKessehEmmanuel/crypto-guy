@@ -8,7 +8,7 @@ import 'react-alice-carousel/lib/alice-carousel.css';
 
 
 const root = ReactDOM.createRoot(
-      document.getElementById('root')
+      document.getElementById('root')!
       );
 root.render(
   

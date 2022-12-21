@@ -1,5 +1,5 @@
 const firebaseConfig = {
-    apiKey: "AIzaSyBFRbWKZc66ZRwuZEwKNw287dgfwzg2RYM",
+    apiKey: process.env.REACT_APP_API_KEY,
     authDomain: "cryptocurrency-market-auth.firebaseapp.com",
     projectId: "cryptocurrency-market-auth",
     storageBucket: "cryptocurrency-market-auth.appspot.com",

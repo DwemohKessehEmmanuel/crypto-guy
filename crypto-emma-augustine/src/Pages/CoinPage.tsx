@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useParams} from 'react-router-dom';
-import { SingleCoin } from '../config/api';
 import { CryptoState } from '../CryptoContext';
 import axios from 'axios';
 import { Button, LinearProgress, makeStyles, Typography, TextField } from '@material-ui/core';
@@ -9,7 +7,8 @@ import parse from 'html-react-parser'
 import { numberWithCommas } from '../components/Banner/Carousel';
 import { doc,setDoc } from 'firebase/firestore';
 import { db } from '../firebase';
-import dateFormat, { masks } from "dateformat";
+import dateFormat from "dateformat";
+import {useParams} from 'react-router-dom'
 
 
 
@@ -38,7 +37,7 @@ const useStyles = makeStyles((theme)=>({
     fontWeight : "bold",
     marginBottom: 20,
     fontFamily: "Montserrat",
-    
+    color: "#0a2351"
   },
   description:{
     width: "100%",
@@ -47,6 +46,8 @@ const useStyles = makeStyles((theme)=>({
     paddingBottom: 15,
     paddingTop: 0,
     textAlign: "justify",
+    color: "black",
+    fontWeight: 500,
   },
   marketData:{
     alignSelf: "start",
@@ -59,11 +60,11 @@ const useStyles = makeStyles((theme)=>({
       justifyContent: "space-around",
       
     },
-    [theme.breakpoints.down("sd")]: {
-      flexDirection: "column",
-      alignItems: "center",
+    // [theme.breakpoints.down("sd")]: {
+    //   flexDirection: "column",
+    //   alignItems: "center",
       
-    },
+    // },
     [theme.breakpoints.down("md")]: {
       alignItems: "start"
       
@@ -106,41 +107,60 @@ const useStyles = makeStyles((theme)=>({
 
 
 
-const CoinPage = () => {
+const CoinPage: React.FC = () => {
   let {id} = useParams();
-  const [coin, setCoin] = useState();
-  const [numCoins, setNumCoins] = useState();
+  const [coin, setCoin] = useState<any>();
+  const [numCoins, setNumCoins] = useState<any>(1);
   const {currency, symbol, user, portfolio, setAlert} = CryptoState();
   const classes = useStyles();
   // const navigate = useNavigate();
 
   
  
-  const fetchSingleCoin = async() => {
-    const {data} = await axios.get(SingleCoin(id));
-    console.log(data);
-    setCoin(data);
+  const options = {
+    method: "GET",
+    url: `https://crypto-emmaaug-api.up.railway.app/singlecoin/${id}`,
+
+    headers: {
+      accept: "application/json",
+    },
   };
-  //console.log(coin);
+        
+    const fetchSingleCoin = async() => {
+      const {data} = await axios.request(options);
+      setCoin(data)
+    }
+       
+     
   useEffect(()=>{
     fetchSingleCoin()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
   
-  const inPortfolio = portfolio.includes(coin?.id);
+  //const inPortfolio = portfolio.includes(coin?.id);
+  const inPortfolio = portfolio.find((eachob: any) => eachob.id === coin?.id);
 
   const addToPortfolio = async()=> {
     const coinRef = doc(db,"portfolio",user.uid );
     try{
       await setDoc(coinRef,
-        {coins:portfolio?[...portfolio,coin?.id]:[coin?.id]}
+        {coins:portfolio?[...portfolio,{
+          id: coin?.id,
+          coindata: {
+            market_data: coin?.market_data,
+            name: coin?.name,
+            image: coin?.image,
+            symbol: coin?.symbol
+          },
+          numCoins: numCoins
+        }]:[coin?.id]}
       );
       setAlert({
         open: true,
         message: `${coin.name} Added to our portfolio !`,
         type: "success",
       })
-    }catch(error){
+    }catch(error: any){
       setAlert({
         open: true,
         message: error.message,
@@ -148,12 +168,13 @@ const CoinPage = () => {
       })
     }
   }
+  
 
   const removeFromPortfolio = async() =>{
     const coinRef = doc(db,"portfolio",user.uid );
     try{
       await setDoc(coinRef,
-        {coins:portfolio.filter((cryptos)=> cryptos !== coin?.id)},
+        {coins:portfolio.filter((cryptos: any)=> cryptos.id !== coin?.id)},
         {merge:true}
       );
       setAlert({
@@ -161,7 +182,7 @@ const CoinPage = () => {
         message: `${coin.name} Removed from your portfolio !`,
         type: "success",
       })
-    }catch(error){
+    }catch(error: any){
       setAlert({
         open: true,
         message: error.message,
@@ -190,22 +211,22 @@ const CoinPage = () => {
         <div className={classes.marketData}>
         <div className={classes.marketData}>
           <span style={{display: "flex"}}>
-            <Typography variant="h7" className={classes.heading}>
+            <Typography className={classes.heading}>
               Rank:
             </Typography>
             &nbsp; &nbsp;
-            <Typography variant="h7" style={{
+            <Typography style={{
               fontFamily:"Montserrat",}
             }>
               {coin?.market_cap_rank}
             </Typography>
           </span>
           <span style={{display: "flex"}}>
-            <Typography variant="h7" className={classes.heading}>
+            <Typography className={classes.heading}>
               Current Price:
             </Typography>
             &nbsp; &nbsp;
-            <Typography variant="h7" style={{
+            <Typography style={{
               fontFamily:"Montserrat",}
             }>
 
@@ -213,11 +234,11 @@ const CoinPage = () => {
             </Typography>
           </span>
           <span style={{display: "flex"}}>
-            <Typography variant="h7" className={classes.heading}>
+            <Typography className={classes.heading}>
               Market Cap:
             </Typography>
             &nbsp; &nbsp;
-            <Typography variant="h7" style={{
+            <Typography style={{
               fontFamily:"Montserrat",}
             }>
 
@@ -228,11 +249,11 @@ const CoinPage = () => {
             </Typography>
           </span>
           <span style={{display: "flex"}}>
-            <Typography variant="h7" className={classes.heading}>
+            <Typography className={classes.heading}>
               Total Supply:
             </Typography>
             &nbsp; &nbsp;
-            <Typography variant="h7" style={{
+            <Typography style={{
               fontFamily:"Montserrat",}
             }>
 
@@ -243,11 +264,11 @@ const CoinPage = () => {
             </Typography>
           </span>
           <span style={{display: "flex"}}>
-            <Typography variant="h7" className={classes.heading}>
+            <Typography className={classes.heading}>
               Circulating Supply:
             </Typography>
             &nbsp; &nbsp;
-            <Typography variant="h7" style={{
+            <Typography style={{
               fontFamily:"Montserrat",}
             }>
 
@@ -258,22 +279,22 @@ const CoinPage = () => {
             </Typography>
           </span>
           <span style={{display: "flex"}}>
-            <Typography variant="h7" className={classes.heading}>
+            <Typography className={classes.heading}>
               Last Updated:
             </Typography>
             &nbsp; &nbsp;
-            <Typography variant="h7" style={{
+            <Typography style={{
               fontFamily:"Montserrat",}
             }>
               {dateFormat(new Date(coin?.last_updated), "dddd, mmmm dS, yyyy, h:MM:ss TT")}
             </Typography>
           </span>
           <span style={{display: "flex"}}>
-            <Typography variant="h7" className={classes.heading}>
+            <Typography className={classes.heading}>
               24hour Volume:
             </Typography>
             &nbsp; &nbsp;
-            <Typography variant="h7" style={{
+            <Typography style={{
               fontFamily:"Montserrat",}
             }>
 
@@ -294,7 +315,7 @@ const CoinPage = () => {
           <TextField id="outlined-basic" label="Number of coins" variant="outlined" onChange={e => setNumCoins(e.target.value)}/>
         </div>
 
-        <div>
+        <div >
         {user && (
             <Button
             className={classes.portfolioadd}

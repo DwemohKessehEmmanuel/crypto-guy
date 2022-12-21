@@ -2,25 +2,29 @@ import axios from 'axios';
 import { onAuthStateChanged } from 'firebase/auth';
 import { doc, onSnapshot } from 'firebase/firestore';
 import React, { createContext, useEffect, useState, useContext } from 'react';
-import { CoinList } from './config/api';
 import { auth } from './firebase';
 import { db } from './firebase';
 
 
-const Crypto = createContext()
-const CryptoContext = ({children}) => {
+const Crypto = createContext<any>("");
 
-  const [currency, setCurrency] = useState("USD") ; 
-  const [symbol, setSymbol] = useState("$")  ;
-  const [coins, setCoins] = useState([]);
- const [loading, setLoading] = useState(false);
- const [user, setUser] = useState(null);
+interface Props {
+  children: React.ReactNode;
+}
+const CryptoContext: React.FC<Props> = ({children}) => {
+
+  const [currency, setCurrency] = useState<string>("USD") ; 
+  const [symbol, setSymbol] = useState<string>("$")  ;
+  const [coins, setCoins] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [user, setUser] = useState<any>(null);
  const [alert,setAlert] = useState({
   open: false,
   message: "",
   type: "success"
  })
  const [portfolio, setPortfolio] = useState([])
+ 
 
  useEffect(()=>{
   if(user){
@@ -47,12 +51,28 @@ const CryptoContext = ({children}) => {
     })
   },[])
   
+ 
+  const option = {
+    method: "GET",
+    url: "https://crypto-emmaaug-api.up.railway.app/allcoin",
+    params: {
+      vs_currency: currency,
+      page: "1",
+      per_page: "100",
+      order: "market_cap_desc",
+    },
+    headers: {
+      accept: "application/json",
+    },
+  };
+  
+  
   const fetchCoins = async () => {
-    setLoading(true);
-    const {data} = await axios.get(CoinList(currency));
-
-    setCoins(data);
-    setLoading(false)
+   setLoading(true);
+   const {data} = await axios.request(option);
+  
+   setCoins(data);
+   setLoading(false)
   };
 
   useEffect(()=>{

@@ -13,9 +13,16 @@ const useStyles = makeStyles(()=>({
     flex: 1,
     color: "#e4451df3",
     fontFamily: "Cursive",
-    fontWeight: "bold",
+    fontWeight: 700,
     cursor: "pointer",
+    width: 200,
+    
   },
+  // typostyle: {
+  //   "&:hover": {
+  //     color: "#7393B3"
+  //   }
+  // },
   formControl:{
     minWidth: 110,
     paddingRight: 50,
@@ -44,7 +51,7 @@ const useStyles = makeStyles(()=>({
 }))
 
   
-const Header = () => {
+const Header: React.FC = () => {
 
   const classes = useStyles();
   const navigate = useNavigate();
@@ -60,9 +67,10 @@ const Header = () => {
       }
       
     },
-    typography:{
-      //fontFamily: "Montserrat"
-    }
+    // typography:{
+    //   fontFamily: "Cursive",
+    //   fontWeight: 700,
+    // }
   });
   
   

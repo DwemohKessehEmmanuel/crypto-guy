@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import "./App.css";
 import Header from "./components/Header";
@@ -14,15 +15,16 @@ import ProtectRoute from './components/ProtectRoute';
 
 const useStyles = makeStyles(()=>({
     App:{
-      backgroundColor:"white",
+      backgroundColor:"#fce2ce",
       color: "black",
-      minHeight:"100vh"
+      minHeight:"100vh",
+      minWidth: "100%"
     },
   })
 );
 
 
-function App() {
+const App: React.FC = () => {
   // styles object
   const classes = useStyles();
     

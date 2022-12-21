@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button'
 import { CryptoState } from '../CryptoContext';
 import { Avatar } from '@material-ui/core';
 import { Link, useNavigate } from 'react-router-dom';
+import { numberWithCommas } from './Banner/Carousel';
 
 // import { auth } from '../firebase';
 
@@ -26,8 +27,8 @@ const useStyles = makeStyles({
     height: "92%",
   },
   picture:{
-    width: 200,
-    height: 200,
+    width: 120,
+    height: 120,
     cursor: "pointer",
     backgroundColor: "#EEBC1D",
     objectFit: "contain",
@@ -38,6 +39,30 @@ const useStyles = makeStyles({
     backgroundColor: "#EEBC1D",
     marginTop: 20,
   },
+  watchlist:{
+    flex:1,
+    width: "100%",
+    backgroundColor: "grey",
+    borderRadius: 10,
+    padding:15,
+    paddingTop: 10,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: 10,
+    overflowY: "scroll",
+  },
+  coin:{
+    padding: 10,
+    borderRadius:5,
+    color: "black",
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "#EEBC1D",
+    boxShadow: "0 0 3px black"
+  }
 });
 
 
@@ -49,7 +74,9 @@ export default function UserSideBar() {
     right: false,
   });
   
-  const {user, setAlert} = CryptoState();
+  const {user, setAlert, portfolio,coins,symbol,setCurrency} = CryptoState();
+  // console.log("portfolio", portfolio)
+  // console.log("user", user)
     
   
 
@@ -102,8 +129,8 @@ export default function UserSideBar() {
                     />
                     <span
                         style={{
-                            width: "100%",
-                            fontSize: 25,
+                            width: "80%",
+                            fontSize: 20,
                             textAlign: "center",
                             fontWeight: "bolder",
                             wordWrap: "break-word",
@@ -116,13 +143,30 @@ export default function UserSideBar() {
                         to='/portfolio'
                         style={{
                             width: "100%",
-                            fontSize: 25,
+                            fontSize: 20,
                             textAlign: "center",
                             fontWeight: "bolder",
                             wordWrap: "break-word",
                         }}
                         >My Portfolio</Link>
                     </div>
+                </div>
+                <div className={classes.watchlist}>
+                  <span style={{fontSize:15,textShadow: "0 0 5px black"}}>
+                    Watchlist
+                  </span>
+                  {portfolio.map(coin =>{
+                    return(
+                      <div className={classes.coin}  >
+                        <span>{coin.id}</span>
+                        <span style={{display: "flex",gap:8}}>
+                          {symbol}
+                          {numberWithCommas(coin.coindata.market_data.current_price.usd.toFixed(2))}
+                        </span>
+
+                      </div>
+                    )
+                  })}
                 </div>
                 <Button
                     variant='contained'
